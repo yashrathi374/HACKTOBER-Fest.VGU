@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cashflow – Your Money, Smarter</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--nav:#0e1836;--pri:#3d4fd6;--bg:#f4f5fb;--ink:#1a2140;--mut:#7a82a0;--line:#eceef7;--g:#2fb57a;--r:#e5484d}
+*{box-sizing:border-box;margin:0}
+body{font:14px/1.4 Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer;border:0;background:none}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+.sb{background:linear-gradient(180deg,#101c40,#0b1330);color:#d9def5;padding:22px 13px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:10px;align-items:center;padding:0 8px 22px}.brand b{display:block;font-size:19px;color:#fff}.brand small{font-size:11px;color:#9aa3cc}
+.nav button{display:flex;align-items:center;gap:13px;width:100%;padding:11px 14px;margin-bottom:6px;border-radius:10px;color:#cdd3f0;font-weight:500;text-align:left}
+.nav button i{font-style:normal;width:20px;text-align:center}.nav button:hover{background:#ffffff12}.nav button.on{background:var(--pri);color:#fff}
+.promo{margin-top:auto;background:linear-gradient(160deg,#17285a,#12204a);border:1px solid #ffffff14;border-radius:14px;padding:16px;font-size:12px}
+.promo h4{font-size:14px;line-height:1.25;color:#fff;margin-bottom:6px}.promo p{color:#aab3d9}.promo div{font-size:44px;text-align:right;line-height:1.1}
+main{padding:20px 24px 28px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px}
+.top h1{font-size:25px;font-weight:700}.top p{color:var(--mut);margin-top:3px}
+.tr{display:flex;align-items:center;gap:16px}
+.search{width:275px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:0}
+.bell{position:relative;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line)}.bell:after{content:"";position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--r)}
+.user{display:flex;align-items:center;gap:9px;font-weight:600}.av{width:38px;height:38px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-weight:600}
+.dash{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px}.col{display:grid;gap:18px;align-content:start;min-width:0}
+.card{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 10px #1a21400a;border:1px solid #f0f1f8}
+.card h3{font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.ch h3{margin:0}
+.link{color:var(--pri);font-size:12px;font-weight:500}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{border-radius:16px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.stat .ic{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:21px;flex:none}
+.stat small{color:#4b5578;font-size:13px}.stat b{display:block;font-size:22px;margin:2px 0 4px}.stat span{font-size:11.5px;color:var(--mut)}.up{color:var(--g)!important;font-weight:600}.dn{color:var(--r)!important;font-weight:600}
+.two{display:grid;grid-template-columns:1.45fr 1fr;gap:18px}
+select,.sel{border:1px solid var(--line);border-radius:8px;padding:5px 9px;background:#fff;font-size:12px}
+.leg{display:flex;gap:14px;font-size:12px;align-items:center}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.donut{display:flex;align-items:center;gap:16px}
+.ring{width:170px;height:170px;border-radius:50%;flex:none;display:grid;place-items:center}
+.ring div{width:104px;height:104px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-size:11px;color:var(--mut)}.ring b{font-size:16px;color:var(--ink);display:block}
+.cl{flex:1;font-size:12px}.cl p{display:flex;justify-content:space-between;padding:5px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th{background:#f6f7fc;text-align:left;font-weight:500;color:#4b5578;padding:9px 10px}td{padding:10px;border-bottom:1px solid var(--line)}
+th:first-child{border-radius:8px 0 0 8px}th:last-child{border-radius:0 8px 8px 0}
+.pill{padding:3px 9px;border-radius:8px;font-size:11px;font-weight:500}.exp{background:#fdebee;color:var(--r)}.inc{background:#e3f6ec;color:var(--g)}
+.paid,.rec{background:#e3f6ec;color:var(--g)}.pen{background:#fff1d6;color:#d98b06}
+.amt-e{color:var(--r);font-weight:600}.amt-i{color:var(--g);font-weight:600}.mini{color:var(--mut);padding:2px 8px}.mini:hover{color:var(--r)}
+.qa{display:grid;gap:10px}.qa button{display:flex;gap:12px;align-items:center;text-align:left;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fafbff}
+.qa button:hover{border-color:#c9cff5}.qa i{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-style:normal;font-size:20px;color:#fff}
+.qa b{display:block;font-size:13px}.qa small{color:var(--mut);font-size:11px}
+.row2{display:grid;grid-template-columns:1fr 1.05fr;gap:18px}
+.goal{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:2px 12px;font-size:12px}
+.bar{height:6px;border-radius:4px;background:#e7eafa;overflow:hidden;margin-top:6px;grid-column:1}.bar i{display:block;height:100%;background:var(--pri);border-radius:4px}
+.goal em{font-style:normal;font-weight:600;grid-row:1/3;grid-column:2;align-self:center}
+.ai{background:linear-gradient(180deg,#e9e7fb,#f6f5fe);padding:14px}
+.ai .hd{display:flex;gap:12px;align-items:center;margin-bottom:12px}.ai .hd i{font-size:34px;font-style:normal}.ai .hd b{display:block;font-size:15px}.ai .hd small{color:var(--mut)}
+.msg{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;line-height:1.5}
+.btns{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;margin-top:12px}
+.b1{background:var(--nav);color:#fff;border-radius:8px;padding:10px;font-weight:600}.b2{background:#eef0fd;color:var(--nav);border-radius:8px;padding:10px;font-weight:600}
+.ins{display:flex;gap:12px;align-items:center;background:#ffffffb0;border-radius:12px;padding:11px;margin-bottom:6px;font-size:12px;width:100%;text-align:left}.ins i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:#fff;flex:none}.ins span{flex:1}
+.rem{display:flex;gap:12px;align-items:center;padding:9px 0;font-size:12px}.rem i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:#fdecee;flex:none}
+.rem div{flex:1}.rem b{display:block;font-size:13px}.rem em{color:var(--r);font-style:normal}.rem p{text-align:right;color:var(--mut)}.rem p b{color:var(--ink)}
+.quote{border-radius:16px;min-height:140px;padding:18px;color:#fff;font-size:14px;font-weight:600;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(120deg,#16284f,#41547d 55%,#d9936a)}
+.quote small{font-weight:400;margin-top:12px;opacity:.85}
+.view{display:none}.view.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.thumb{height:130px;border-radius:10px;background:#f0f2fb center/cover;display:grid;place-items:center;font-size:34px;margin-bottom:8px}
+.chat{height:380px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px}.chat div{max-width:78%;padding:10px 13px;border-radius:14px;white-space:pre-line}
+.chat .u{align-self:flex-end;background:var(--pri);color:#fff}.chat .a{background:#f0f2fb}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chips button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 12px;font-size:12px}
+.f{display:flex;gap:10px}.f input,.fm input,.fm select{flex:1;padding:10px 12px;border:1px solid var(--line);border-radius:10px;width:100%;outline:0;background:#fff}
+.btn{background:var(--pri);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600}.btn.o{background:#eef0fd;color:var(--pri)}
+.btns2{display:flex;gap:10px;flex-wrap:wrap}
+.md{position:fixed;inset:0;background:#0b133088;display:none;place-items:center;z-index:9}.md.on{display:grid}
+.md form{background:#fff;border-radius:18px;padding:22px;width:min(460px,94vw);max-height:92vh;overflow:auto}
+.fm{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.fm label{font-size:12px;color:var(--mut);display:block}.fm .w{grid-column:1/3}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--nav);color:#fff;padding:11px 18px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;z-index:10}#toast.on{opacity:1}
+.empty{color:var(--mut);padding:16px;text-align:center}
+@media(max-width:1180px){.dash{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.app{grid-template-columns:1fr}.sb{position:static;height:auto}.nav{display:grid;grid-template-columns:repeat(3,1fr)}.promo{display:none}.two,.row2{grid-template-columns:1fr}.top{flex-direction:column}.search{width:100%}.donut{flex-direction:column}}
+#login{position:fixed;inset:0;z-index:20;display:flex;background:var(--bg)}
+.lp{flex:1.1;background:linear-gradient(160deg,#101c40,#0b1330);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+.lp h2{font-size:34px;line-height:1.2;max-width:420px}.lp p{color:#aab3d9;margin-top:12px;max-width:380px}
+.lf{flex:1;display:grid;place-items:center;padding:24px}.lc{width:min(400px,100%)}.lc h1{font-size:26px}.lc>p{color:var(--mut);margin:4px 0 18px}
+.lc label{display:block;font-size:12px;color:var(--mut);margin-bottom:12px}.lc input{display:block;width:100%;margin-top:5px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;outline:0}
+.lc input:focus{border-color:var(--pri)}.lc .btn{width:100%;padding:12px}.lc .btn.o{margin-top:10px}
+#le{color:var(--r);font-size:12.5px;min-height:18px;margin-bottom:6px}.lsw{text-align:center;margin-top:16px;color:var(--mut);font-size:13px}
+@media(max-width:820px){.lp{display:none}}
+.fm textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;min-height:70px;resize:vertical;font:inherit;outline:0}
+.rem .mini{padding:0 4px;font-size:12px}
+
+:root{--card:#fff;--sb1:#101c40;--sb2:#0b1330}
+.sb{background:linear-gradient(180deg,var(--sb1),var(--sb2))}.lp{background:linear-gradient(160deg,var(--sb1),var(--sb2))}
+.card,.search,select,.sel,.md form,.fm input,.fm select,.fm textarea,.f input,.lc input,.msg,.bell,.chips button,.ring div{background:var(--card)}
+.av{background-size:cover;background-position:center}.stat,.stat b{color:#1a2140}
+body.dark{--bg:#0d1224;--ink:#e6e9f7;--mut:#98a1c4;--line:#252c48;--card:#171d36}
+body.dark th{background:var(--line);color:var(--ink)}body.dark .qa button,body.dark .ins,body.dark .chat .a{background:#202850;color:var(--ink)}
+body.dark .ai{background:#1b2040}body.dark .btn.o,body.dark .b2{background:#252e58;color:#cdd3f0}body.dark .card{border-color:var(--line)}
+
+.tr{position:relative}.pop{position:absolute;right:0;top:50px;width:min(370px,92vw);background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px #0003;padding:12px;z-index:8;display:none;max-height:75vh;overflow:auto}.pop.on{display:block}
+.pi{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}.pmb{display:block;width:100%;text-align:left;padding:9px 6px;border-radius:8px}.pmb:hover{background:var(--line)}.sm{font-size:12px;color:var(--mut)}
+.bell.z:after{display:none}.chips button.on{background:var(--pri);color:#fff;border-color:var(--pri)}.chat b{font-weight:700}
+</style></head><body>
+<div class="app">
+<aside class="sb">
+ <div class="brand"><svg width="36" height="36" viewBox="0 0 32 32"><path d="M4 22C4 11 12 4 28 4c0 14-7 22-18 22 0 0-4 1-6 4 0-3 0-5 0-8z" fill="#3fc9b0"/><path d="M8 24C12 16 18 11 24 8" stroke="#1a2a5a" stroke-width="2" fill="none"/></svg><div><b>Cashflow</b><small>Your Money, Smarter</small></div></div>
+ <nav class="nav" id="nav"></nav>
+ <div class="promo"><h4>Better Money<br>Better Future</h4><p>Save more, spend wisely,<br>achieve your goals.</p><div>🪴🪙</div></div>
+</aside>
+<main>
+ <header class="top"><div><h1 id="greet"></h1><p>Here's your financial overview for today.</p></div>
+ <div class="tr"><input class="search" id="q" placeholder="Search transactions, receipts..."><button class="bell" onclick="togN()">🔔</button><div class="user" style="cursor:pointer" onclick="togP()"><span class="av" id="av"></span><span id="un"></span></div><button class="btn o" onclick="logout()">Logout</button><div class="pop" id="np"></div><div class="pop" id="pm"></div></div></header>
+
+ <section class="view on" id="v-dashboard"><div class="dash">
+  <div class="col">
+   <div class="stats" id="stats"></div>
+   <div class="two">
+    <div class="card"><div class="ch"><h3>📅 Monthly Spending Overview</h3><div class="leg"><span><i class="dot" style="background:#2fb57a"></i>Income</span><span><i class="dot" style="background:#5b7cfa"></i>Expense</span><select id="yr" onchange="render()"></select></div></div><div id="cm"></div></div>
+    <div class="card"><div class="ch"><h3>◔ Expense Breakdown</h3><select id="bp" onchange="render()"><option value="m">This Month</option><option value="a">All time</option></select></div><div class="donut"><div class="ring" id="ring"><div><span><b id="rt"></b>Total Expense</span></div></div><div class="cl" id="cl"></div></div></div>
+   </div>
+   <div class="two" style="grid-template-columns:1.9fr 1fr">
+    <div class="card"><div class="ch"><h3>🧾 Recent Transactions</h3><button class="link" onclick="go('transactions')">View All</button></div><div id="rt-t" style="overflow-x:auto"></div></div>
+    <div class="card"><h3>⚡ Quick Actions</h3><div class="qa" id="qa"></div></div>
+   </div>
+   <div class="row2">
+    <div class="card"><div class="ch"><h3>📅 Weekly Spending</h3><select id="wk" onchange="render()"><option value="t">This Week</option><option value="l">Last Week</option></select></div><div id="cw"></div></div>
+    <div class="card"><div class="ch"><h3>🎯 Financial Goals</h3><span><button class="link" onclick="editG()">+ Add</button> &nbsp; <button class="link" onclick="go('budgets')">View All</button></span></div><div id="gd"></div></div>
+   </div>
+  </div>
+  <div class="col">
+   <div class="card ai"><div class="hd"><i>🤖</i><div style="flex:1"><b id="ait">Finny</b><small id="ais">Your AI finance assistant</small></div><button class="b2" style="padding:6px 10px;font-size:12px" onclick="openAI()">✏️ Edit</button></div><div class="msg" id="aim"></div><div id="ains"></div></div>
+   <div class="card"><div class="ch"><h3>⏰ Upcoming Reminders</h3><span><button class="link" onclick="editR()">+ Add</button> &nbsp; <button class="link" onclick="go('budgets')">View All</button></span></div><div id="rl"></div></div>
+   <div class="quote">Small steps today<br>build big dreams tomorrow.<small>🌿 – Cashflow</small></div>
+  </div>
+ </div></section>
+
+ <section class="view" id="v-transactions"><div class="card"><div class="ch"><h3>Transactions</h3><div class="btns2"><select id="ft"><option value="">All types</option><option>income</option><option>expense</option></select><button class="btn" onclick="openM()">+ Add Payment</button></div></div><div id="tt" style="overflow-x:auto"></div></div></section>
+
+ <section class="view" id="v-receipts"><div class="card"><div class="ch"><h3>Receipt Vault</h3><button class="btn" onclick="openM(1)">📷 Upload Receipt</button></div><div class="grid" id="rg"></div></div></section>
+
+ <section class="view" id="v-budgets"><div class="two" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h3>Monthly Budget</h3><div class="f"><input type="number" id="bl" min="0"><button class="btn" onclick="setB()">Save limit</button></div><div id="bs" style="margin-top:16px"></div>
+   <h3 style="margin-top:24px">Upcoming Bills</h3><div id="rl2"></div>
+   <div class="fm" style="margin:10px 0 0"><input id="rn" placeholder="Bill name"><input id="ra" type="number" placeholder="Amount"><input id="rd" type="date" class="w"></div><button class="btn" onclick="addR()">+ Add reminder</button></div>
+  <div class="card"><h3>Savings Goals</h3><div id="gl"></div><div class="fm" style="margin:10px 0 0"><input id="gn" placeholder="Goal name"><input id="gt" type="number" placeholder="Target amount"></div><button class="btn" onclick="addG()">+ Add goal</button></div>
+ </div></section>
+
+ <section class="view" id="v-assistant"><div class="card"><div class="ch"><h3 id="ah">🤖 Finny</h3><button class="btn o" onclick="openAI()">✏️ Edit name</button></div><p id="am" style="color:var(--mut);font-size:12px;margin:-4px 0 10px"></p><div class="chat" id="chat"></div><div class="chips" id="chips"></div><div class="f"><input class="search" style="flex:1;width:auto" id="ci" placeholder="Ask about spending, bills, budget..."><button class="btn" onclick="ask()">Send</button></div></div></section>
+
+ <section class="view" id="v-reports"><div class="card"><h3>Reports & Backup</h3><p style="color:var(--mut);margin-bottom:14px">Export your transactions as a CSV file. Your data is stored in this browser's database on this device.</p>
+  <div class="btns2"><button class="btn" onclick="csv()">Export CSV</button><button class="btn o" onclick="clearAll()">Clear all my data</button></div><div id="rp" style="margin-top:20px"></div></div></section>
+
+ <section class="view" id="v-settings"><div class="card" style="max-width:560px"><h3>Settings</h3>
+<div style="display:flex;gap:14px;align-items:center;margin-bottom:12px"><span class="av" id="sav" style="width:64px;height:64px;font-size:24px"></span><div><label class="btn o" style="display:inline-block">Profile photo<input id="sph" type="file" accept="image/*" hidden></label> <button class="link" onclick="S.photo='';save();render()">Remove</button></div></div>
+<div class="fm"><label class="w">Your name<input id="sn"></label><label>Date of birth<input id="sdob" type="date"></label><label>Language<select id="slang" onchange="setLang(this.value)"><option value="en">English</option><option value="hi">हिन्दी</option><option value="hn">Hinglish</option></select></label>
+<label class="w">Theme<select id="sth" onchange="setTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option><option value="custom">Custom colour</option></select></label>
+<div class="fm" id="tcw" style="grid-column:1/3;grid-template-columns:1fr 1fr 1fr;margin:0"><label>Accent<input id="tc1" type="color" oninput="setTheme('custom')"></label><label>Background<input id="tc2" type="color" oninput="setTheme('custom')"></label><label>Sidebar<input id="tc3" type="color" oninput="setTheme('custom')"></label></div>
+<label>Current balance (₹)<input id="sob" type="number" step="any"></label><label>Monthly budget (₹)<input id="sbu" type="number" min="0" step="any"></label></div>
+<button class="btn" onclick="saveSet()">Save settings</button></div></section>
+<section class="view" id="v-share"><div class="two" style="grid-template-columns:1fr 1fr"><div class="card"><h3>Share my data</h3><div class="fm"><label class="w">Period<select id="shr"><option value="m">This month</option><option value="w">Last 7 days</option><option value="a">All time</option></select></label></div>
+<div style="display:grid;gap:8px;margin:8px 0 14px"><label style="display:flex;gap:8px"><input type="checkbox" id="c-sum" checked>Summary</label><label style="display:flex;gap:8px"><input type="checkbox" id="c-tx" checked>Transactions</label><label style="display:flex;gap:8px"><input type="checkbox" id="c-g">Goals</label><label style="display:flex;gap:8px"><input type="checkbox" id="c-b">Upcoming bills</label></div>
+<div class="fm" style="margin:0 0 12px"><label class="w">My note (optional)<input id="shn"></label></div>
+<div class="btns2"><button class="btn" onclick="sh('wa')">WhatsApp</button><button class="btn" onclick="sh('ig')">Instagram</button><button class="btn" onclick="sh('sms')">Message</button><button class="btn" onclick="sh('mail')">Email</button><button class="btn o" onclick="sh('sys')">More apps</button><button class="btn o" onclick="sh('cp')">Copy</button></div></div>
+<div class="card"><h3>👪 Parents</h3><p style="color:var(--mut);font-size:12px">Save your parent's contact, then send them your report with one tap.</p><div class="fm"><label class="w">Parent name<input id="pn"></label><label>Phone (with country code)<input id="pp" type="tel" placeholder="919876543210"></label><label>Email<input id="pe" type="email"></label></div>
+<div class="btns2"><button class="btn" onclick="savePar()">Save parent</button></div><h3 style="margin-top:18px">Send to parents</h3><div class="btns2"><button class="btn o" onclick="sh('wa',1)">WhatsApp</button><button class="btn o" onclick="sh('sms',1)">Message</button><button class="btn o" onclick="sh('mail',1)">Email</button></div></div></div></section>
+</main></div>
+
+<div class="md" id="md"><form id="mf"><h3 id="mt" style="font-size:18px">Add Payment</h3>
+ <div class="fm">
+  <label>Type<select id="mty"><option value="expense">Expense</option><option value="income">Income</option></select></label>
+  <label>Amount (₹)<input id="mam" type="number" min="1" step="any" required></label>
+  <label>Category<select id="mc"></select></label>
+  <label>Date<input id="mdt" type="date" required></label>
+  <label class="w" id="mcw" style="display:none">Custom category<input id="mcs" list="ccl" placeholder="e.g. Gym, Gift"><datalist id="ccl"></datalist></label><label class="w">Description<input id="mds" required placeholder="e.g. Zomato order"></label>
+  <label>Method<select id="mme"><option>UPI</option><option>Card</option><option>Cash</option><option>Bank</option></select></label>
+  <label>Status<select id="mst"><option value="paid">Paid / Received</option><option value="pending">Pending</option></select></label>
+  <label class="w">Receipt or screenshot (image/PDF)<input id="mfi" type="file" accept="image/*,.pdf"></label>
+ </div><div class="btns2" style="justify-content:flex-end"><button type="button" class="btn o" onclick="closeM()">Cancel</button><button class="btn">Save payment</button></div></form></div>
+<div class="md" id="rmd"><form id="rf"><h3 id="rht" style="font-size:18px">Reminder</h3><div class="fm"><label class="w">Bill name<input id="rfn" required></label><label>Amount (₹)<input id="rfa" type="number" min="1" step="any" required></label><label>Due date<input id="rfd" type="date" required></label><label class="w">Icon<select id="rfi"><option>🔔</option><option>💡</option><option>📶</option><option>💳</option><option>🏠</option><option>📱</option><option>🚗</option><option>🎓</option><option>💊</option></select></label></div><div class="btns2" style="justify-content:flex-end"><button type="button" class="btn o" onclick="$('#rmd').classList.remove('on')">Cancel</button><button class="btn">Save</button></div></form></div>
+<div class="md" id="amd"><form id="af"><h3 style="font-size:18px">Customize Finny</h3><div class="fm"><label>Name<input id="ati"></label><label>Subtitle<input id="asu"></label><label class="w">Your own message (leave blank for the automatic bill reminder)<textarea id="amg" placeholder="e.g. Great job saving this week!"></textarea></label><label class="w"><input id="aau" type="checkbox" style="width:auto;display:inline;margin-right:6px">Show automatic insights</label></div><b style="font-size:13px">Your tips</b><div id="atl" style="margin:8px 0"></div><button type="button" class="btn o" id="aat">+ Add tip</button><div class="btns2" style="justify-content:space-between;margin-top:16px"><button type="button" class="btn o" id="aar">Reset</button><span class="btns2"><button type="button" class="btn o" onclick="$('#amd').classList.remove('on')">Cancel</button><button class="btn">Save</button></span></div></form></div>
+<div class="md" id="gmd"><form id="gf"><h3 id="gmt" style="font-size:18px">Goal</h3><div class="fm"><label class="w">Goal name<input id="gfn" required></label><label>Target (₹)<input id="gft" type="number" min="1" step="any" required></label><label>Saved so far (₹)<input id="gfs" type="number" min="0" step="any"></label></div><div class="btns2" style="justify-content:flex-end"><button type="button" class="btn o" onclick="$('#gmd').classList.remove('on')">Cancel</button><button class="btn">Save</button></div></form></div>
+<div class="md" id="omd"><form id="of"><h3 style="font-size:18px">Welcome to Cashflow 👋</h3><p style="color:var(--mut);margin-top:4px">Tell us where you are starting. You can change these anytime in Settings.</p><div class="fm"><label>Current balance (₹)<input id="ob" type="number" step="any" placeholder="0"></label><label>Monthly budget (₹)<input id="obu" type="number" min="0" step="any" placeholder="0"></label></div><div class="btns2" style="justify-content:flex-end"><button type="button" class="btn o" id="osk">Skip</button><button class="btn">Save</button></div></form></div>
+<div id="login"><div class="lp"><div class="brand" style="padding:0"><svg width="40" height="40" viewBox="0 0 32 32"><path d="M4 22C4 11 12 4 28 4c0 14-7 22-18 22 0 0-4 1-6 4 0-3 0-5 0-8z" fill="#3fc9b0"/><path d="M8 24C12 16 18 11 24 8" stroke="#fff" stroke-width="2" fill="none"/></svg><div><b>Cashflow</b><small>Your Money, Smarter</small></div></div><div><h2>Track every rupee. Reach every goal.</h2><p>Payments, receipts, bills and budgets in one place, with an assistant that helps you spend wisely.</p></div><small style="color:#7f8ab8">Prototype: accounts and data are stored only in this browser.</small></div>
+<div class="lf"><form class="lc" id="lform"><h1 id="lt">Welcome back</h1><p>Sign in to see your financial overview.</p>
+<label id="lnw" style="display:none">Full name<input id="ln" autocomplete="name"></label>
+<label>Email<input id="lem" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+<label>Password<input id="lpw" type="password" required autocomplete="current-password" placeholder="At least 6 characters"></label>
+<div id="le" role="alert"></div><button class="btn" id="ls">Sign in</button><button type="button" class="btn o" onclick="demo()">Use demo account</button>
+<div class="lsw" id="lsw"></div></form></div></div>
+<div class="md" id="lmd"><form onsubmit="return false"><h3 style="font-size:18px">Log out?</h3><p style="color:var(--mut);margin:8px 0 16px">Are you sure you want to log out?</p><div class="btns2" style="justify-content:flex-end"><button type="button" class="btn o" onclick="$('#lmd').classList.remove('on')">No</button><button type="button" class="btn" onclick="$('#lmd').classList.remove('on');doLogout()">Yes</button></div></form></div>
+<div class="md" id="dmd"><form id="df"><h3 id="dmt" style="font-size:18px">Add money</h3><p id="dhn" style="color:var(--mut);margin-top:4px"></p><div class="fm"><label class="w">Amount (₹)<input id="dam" type="number" min="1" step="any" required></label><label class="w" style="display:flex;gap:8px;align-items:center"><input id="dde" type="checkbox" checked style="width:auto">Deduct from my balance</label></div><div class="btns2" style="justify-content:flex-end"><button type="button" class="btn o" onclick="$('#dmd').classList.remove('on')">Cancel</button><button class="btn">Add money</button></div></form></div>
+<div id="toast"></div>
+
+<script>
+let K='',U=null;const $=s=>document.querySelector(s),MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const EC=['Food & Dining','Travel','Shopping','Bills','Entertainment','Medical','Others'],IC=['Salary','Freelance','Other income'],CC=['#5b6cf0','#3f8cff','#5fd0b0','#ffc857','#ef6f9b','#ff8a65','#b39ddb'];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const D=s=>new Date(s+'T00:00:00'),fd=s=>D(s).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const dleft=s=>Math.round((D(s)-D(iso(0)))/864e5);
+function seed(){return{name:'',budget:0,opening:0,setup:false,tx:[],rem:[],goals:[],n:100}}
+let S=seed();const AI=()=>S.ai||(S.ai={title:'Finny',sub:'Your AI finance assistant',msg:'',auto:true,tips:[]});
+function save(){if(K)kvSet(K,S)}
+let tm;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('on'),2600)}
+const sum=(a,f)=>a.reduce((s,x)=>s+(f?f(x):typeof x=='number'?x:x.amt),0),ex=()=>S.tx.filter(x=>x.type=='expense'),inc=()=>S.tx.filter(x=>x.type=='income'),pend=()=>S.tx.filter(x=>x.status=='pending');
+const sorted=()=>[...S.tx].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+const rems=()=>[...S.rem].sort((a,b)=>a.date.localeCompare(b.date));
+const bycat=m=>EC.map(c=>sum(ex().filter(x=>{const d=D(x.date),n=new Date();return x.cat==c&&(!m||d.getMonth()==n.getMonth()&&d.getFullYear()==n.getFullYear())})));
+
+/* nav */
+const NAV=[['dashboard','🏠','Dashboard'],['transactions','⇄','Transactions'],['pay','➕','Add Payment'],['receipts','🧾','Receipts'],['budgets','◔','Budgets'],['assistant','✦','AI Assistant'],['reports','📊','Reports'],['share','👪','Share & Parents'],['settings','⚙️','Settings'],['logout','⎋','Logout']];
+$('#nav').innerHTML=NAV.map(n=>`<button data-v="${n[0]}"><i>${n[1]}</i>${n[2]}</button>`).join('');
+$('#nav').onclick=e=>{const b=e.target.closest('button');if(!b)return;const v=b.dataset.v;v=='logout'?logout():v=='pay'?openM():v=='scan'?openM(1):go(v)};
+let cur='dashboard';
+function go(v){cur=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id=='v-'+v));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));render()}
+
+/* charts */
+function bars(id,labels,ser,cols,H){const W=600,L=46,B=24,T=8,ph=H-B-T,pw=W-L,m=Math.max(...ser.flat(),1),u=m>=10000?10000:1000,top=Math.ceil(m/u)*u;
+ const yf=v=>'₹ '+(v>=1000?(v/1000).toFixed(v%1000?1:0)+'k':v);let s='';
+ for(let i=0;i<=4;i++){const v=top/4*i,y=T+ph-ph*v/top;s+=`<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="#eceef7"/><text x="${L-8}" y="${y+3}" text-anchor="end" font-size="10" fill="#7a82a0">${yf(v)}</text>`}
+ const g=pw/labels.length,bw=Math.min(15,g/(ser.length+1));
+ labels.forEach((l,i)=>{ser.forEach((a,j)=>{const h=ph*a[i]/top,x=L+g*i+(g-bw*ser.length-3*(ser.length-1))/2+j*(bw+3);s+=`<rect x="${x}" y="${T+ph-h}" width="${bw}" height="${h}" rx="3" fill="${cols[j]}"><title>${l}: ${inr(a[i])}</title></rect>`});s+=`<text x="${L+g*i+g/2}" y="${H-6}" text-anchor="middle" font-size="10" fill="#7a82a0">${l}</text>`});
+ $(id).innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%">${s}</svg>`}
+
+/* rows */
+function rows(list,full){if(!list.length)return'<p class="empty">No transactions found.</p>';
+ return`<table><tr><th>Date</th><th>Type</th><th>Category</th><th>Description</th><th>Amount</th><th>Status</th>${full?'<th>Receipt</th>':''}<th></th></tr>`+list.map(x=>`<tr><td>${fd(x.date)}</td><td><span class="pill ${x.type=='income'?'inc':'exp'}">${x.type=='income'?'Income':'Expense'}</span></td><td>${esc(x.cat)}${x.sub?' · '+esc(x.sub):''}</td><td>${esc(x.desc)}</td><td class="${x.type=='income'?'amt-i':'amt-e'}">${x.type=='income'?'+':'-'} ${inr(x.amt)}</td><td><span class="pill ${x.status=='pending'?'pen':x.type=='income'?'rec':'paid'}">${x.status=='pending'?'Pending':x.type=='income'?'Received':'Paid'}</span></td>${full?`<td>${x.file?`<a class="link" href="${x.file.data}" download="${esc(x.file.name)}">Download</a>`:'–'}</td>`:''}<td><button class="mini" title="Edit" onclick="editTx(${x.id})">✏️</button><button class="mini" title="Delete" onclick="del(${x.id})">🗑</button></td></tr>`).join('')+'</table>'}
+const flt=()=>{const q=$('#q').value.toLowerCase();return sorted().filter(x=>!q||[x.desc,x.cat,x.type,x.status,x.method,String(x.amt)].join(' ').toLowerCase().includes(q))};
+function remHTML(l,full){return l.map(r=>{const d=dleft(r.date);return`<div class="rem"><i>${r.ic||'🔔'}</i><div><b>${esc(r.name)}</b><em>${d<0?'Overdue':d==0?'Due today':'Due in '+d+' days'}</em></div><p><b>${inr(r.amt)}</b>${fd(r.date)}<br>${full?`<button class="mini" onclick="payR(${r.id})">Pay</button>`:''}<button class="mini" title="Edit" onclick="editR(${r.id})">✏️</button><button class="mini" title="Delete" onclick="delR(${r.id})">🗑</button></p></div>`}).join('')||'<p class="empty">No upcoming bills.</p>'}
+
+/* render */
+function render(){const h=new Date().getHours();
+ $('#greet').innerHTML=`Good ${h<12?'Morning':h<17?'Afternoon':'Evening'}, ${esc(S.name.split(' ')[0])} 👋`;av();$('#un').textContent=S.name;
+ const I=sum(inc()),E=sum(ex()),B=bal();
+ if(cur=='dashboard'){
+ $('#stats').innerHTML=[['#e6f6ee','#d3efe0','👛','Total Balance',B,'Opening '+inr(S.opening||0)],['#e7f0fd','#d4e4fb','💼','Total Income',I,inc().length+' transactions'],['#fdecee','#fad9dd','🛍️','Total Expenses',E,ex().length+' transactions'],['#efeafd','#e0d8fa','🐷','Total Savings',sum(S.goals,g=>g.saved),S.goals.length+' goal(s)']].map(s=>`<div class="stat" style="background:${s[0]}"><div class="ic" style="background:${s[1]}">${s[2]}</div><div><small>${s[3]}</small><b>${inr(s[4])}</b><span>${s[5]}</span></div></div>`).join('');
+ const ys=[...new Set([new Date().getFullYear(),...S.tx.map(x=>D(x.date).getFullYear())])].sort((a,b)=>b-a),cy=$('#yr').value;$('#yr').innerHTML=ys.map(y=>`<option>${y}</option>`).join('');$('#yr').value=ys.includes(+cy)?cy:ys[0];
+ const bi=Array(12).fill(0),be=Array(12).fill(0);S.tx.forEach(x=>{const d=D(x.date);if(d.getFullYear()==+$('#yr').value)(x.type=='income'?bi:be)[d.getMonth()]+=x.amt});bars('#cm',MN,[bi,be],['#2fb57a','#5b7cfa'],230);
+ const cs=bycat($('#bp').value!='a'),tot=sum(cs)||1;let a=0;$('#ring').style.background=`conic-gradient(${cs.map((v,i)=>{const s=a;a+=v/tot*100;return`${CC[i]} ${s}% ${a}%`}).join(',')})`;$('#rt').textContent=inr(sum(cs));if(!sum(cs))$('#ring').style.background='#eceef7';
+ $('#cl').innerHTML=EC.map((c,i)=>`<p><span><i class="dot" style="background:${CC[i]}"></i>${c}</span><b style="font-weight:500">${Math.round(cs[i]/tot*100)}%</b></p>`).join('');
+ $('#rt-t').innerHTML=rows(sorted().slice(0,6));
+ $('#qa').innerHTML=[['#2fb57a','➕','Add Payment','Manual payment entry',"openM()"],['#8b5cf6','🧾','View Receipts','See all your receipts',"go('receipts')"],['#f5873b','◎','Set Budget','Plan your monthly budget',"go('budgets')"]].map(q=>`<button onclick="${q[4]}"><i style="background:${q[0]}">${q[1]}</i><div><b>${q[2]}</b><small>${q[3]}</small></div></button>`).join('');
+ const mon=new Date();mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7)+($('#wk').value=='l'?-7:0));const w=[0,0,0,0,0,0,0];ex().forEach(x=>{const k=Math.round((D(x.date)-mon)/864e5);if(k>=0&&k<7)w[k]+=x.amt});
+ bars('#cw',['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],[w],['#8f8ff5'],170);
+ $('#gd').innerHTML=S.goals.slice(0,3).map(goalH).join('')||'<p class="empty">No goals yet. Click + Add to create one.</p>';
+ const r=rems()[0],A=AI(),fn=esc((S.name||'there').split(' ')[0]);
+ $('#ait').textContent=A.title;$('#ais').textContent=A.sub;
+ $('#aim').innerHTML=`Hey ${fn}! 👋<br>`+(A.msg?esc(A.msg).replace(/\n/g,'<br>'):autoMsg(r))+(r?`<div class="btns"><button class="b1" onclick="payR(${r.id})">Pay Now</button><button class="b2" onclick="snooze(${r.id})">Remind Later</button></div>`:'')+`<button class="link" style="margin-top:10px" onclick="openAI('amg')">✏️ Edit message</button>`;
+ $('#ains').innerHTML=(A.auto?insights():[]).map(x=>`<button class="ins" onclick="go('assistant');ask('${x[2]}')"><i>${x[0]}</i><span>${x[1]}</span>›</button>`).join('')+A.tips.map(t=>`<div class="ins"><i>✨</i><span>${esc(t)}</span></div>`).join('');
+ $('#rl').innerHTML=remHTML(rems().slice(0,5))}
+ if(cur=='transactions')$('#tt').innerHTML=rows(flt().filter(x=>!$('#ft').value||x.type==$('#ft').value),1);
+ if(cur=='receipts'){const l=flt().filter(x=>x.file);$('#rg').innerHTML=l.map(x=>`<div class="card" style="padding:12px"><div class="thumb" style="${x.file.data.startsWith('data:image')?`background-image:url(${x.file.data})`:''}">${x.file.data.startsWith('data:image')?'':'📄'}</div><b>${esc(x.desc)}</b><p style="color:var(--mut);font-size:12px">${fd(x.date)} · ${inr(x.amt)}</p><a class="link" href="${x.file.data}" download="${esc(x.file.name)}">Download</a></div>`).join('')||'<p class="empty" style="grid-column:1/-1">No receipts yet. Upload one when you add a payment.</p>'}
+ if(cur=='budgets'){$('#bl').value=S.budget||'';const sp=sum(ex().filter(x=>dleft(x.date)>-30)),p=S.budget>0?Math.round(sp/S.budget*100):0;
+  $('#bs').innerHTML=!(S.budget>0)?'<p class="empty">Set a monthly limit above to track your spending.</p>':`<p>${inr(sp)} spent of ${inr(S.budget)} in the last 30 days (${p}%)</p><div class="bar" style="height:10px"><i style="width:${Math.min(p,100)}%;background:${p>100?'var(--r)':p>80?'#f5a623':'var(--g)'}"></i></div><p style="color:var(--mut);margin-top:6px">${sp>S.budget?'Over budget by '+inr(sp-S.budget):inr(S.budget-sp)+' left to spend'}</p>`;
+  $('#rl2').innerHTML=remHTML(rems(),1);
+  $('#gl').innerHTML=S.goals.map(goalH).join('')||'<p class="empty">No goals yet.</p>'}
+ if(cur=='reports')$('#rp').innerHTML=`<table><tr><th>Category</th><th>Spent</th><th>Share</th></tr>${EC.map((c,i)=>`<tr><td>${c}</td><td>${inr(bycat()[i])}</td><td>${Math.round(bycat()[i]/(E||1)*100)}%</td></tr>`).join('')}<tr><td><b>Income</b></td><td colspan="2">${inr(I)}</td></tr><tr><td><b>Balance</b></td><td colspan="2">${inr(B)}</td></tr></table>`;
+ if(cur=='settings'){$('#sn').value=S.name;$('#sob').value=S.opening||'';$('#sbu').value=S.budget||'';fillSet()}if(cur=='share')fillSh()}
+
+/* actions */
+function del(id){if(confirm('Delete this transaction?')){S.tx=S.tx.filter(x=>x.id!=id);save();render()}}
+function payR(id){const r=S.rem.find(x=>x.id==id);if(!r)return;S.tx.push({id:++S.n,date:iso(0),type:'expense',cat:'Bills',desc:r.name,amt:r.amt,status:'paid',method:'UPI',file:null});S.rem=S.rem.filter(x=>x.id!=id);save();render();toast(r.name+' paid – '+inr(r.amt))}
+function setB(){const v=+$('#bl').value;if(v>0){S.budget=v;save();render();toast('Budget saved')}}
+function addR(){const n=$('#rn').value.trim(),a=+$('#ra').value,d=$('#rd').value;if(!n||!a||!d)return toast('Enter a name, amount and due date');S.rem.push({id:++S.n,name:n,amt:a,date:d,ic:'🔔'});save();['#rn','#ra','#rd'].forEach(s=>$(s).value='');render();toast('Reminder added')}
+function addG(){const n=$('#gn').value.trim(),t=+$('#gt').value;if(!n||!t)return toast('Enter a goal name and target');S.goals.push({id:++S.n,name:n,saved:0,target:t});save();$('#gn').value=$('#gt').value='';render();toast('Goal added')}
+function addS(id){const v=+prompt('Amount to add (₹)');if(v>0){const g=S.goals.find(x=>x.id==id);g.saved=Math.min(g.target,g.saved+v);save();render()}}
+
+/* modal */
+function cats(){$('#mc').innerHTML=($('#mty').value=='income'?IC:EC).map(c=>`<option>${c}</option>`).join('');cc()}
+$('#mty').onchange=cats;
+let mid=null;function editTx(id){const x=S.tx.find(t=>t.id==id);openM();mid=id;$('#mt').textContent='Edit Payment';$('#mty').value=x.type;cats();$('#mc').value=x.cat;cc();$('#mcs').value=x.sub||'';$('#mam').value=x.amt;$('#mdt').value=x.date;$('#mds').value=x.desc;$('#mme').value=x.method;$('#mst').value=x.status}
+function openM(scan){mid=null;$('#mf').reset();$('#mdt').value=iso(0);$('#mdt').max=iso(0);cats();$('#mt').textContent=scan?'Upload Receipt':'Add Payment';$('#md').classList.add('on');if(scan)$('#mfi').click()}
+function closeM(){$('#md').classList.remove('on')}
+$('#md').onclick=e=>{if(e.target.id=='md')closeM()};
+$('#mf').onsubmit=e=>{e.preventDefault();if($('#mdt').value>iso(0))return toast('Future dates are not allowed');const f=$('#mfi').files[0],fin=file=>{const o={date:$('#mdt').value,type:$('#mty').value,cat:$('#mc').value,sub:subv(),desc:$('#mds').value.trim(),amt:+$('#mam').value,status:$('#mst').value,method:$('#mme').value,file};if(mid){const t=S.tx.find(x=>x.id==mid);if(t){if(!file)o.file=t.file;Object.assign(t,o)}}else S.tx.push({id:++S.n,...o});save();closeM();render();toast('Payment saved')};
+ if(!f)return fin(null);if(f.size>5e6)return toast('File is over 5 MB – choose a smaller one');const r=new FileReader();r.onload=()=>fin({name:f.name,data:r.result});r.readAsDataURL(f)};
+
+/* AI */
+let hist=[],busy=0;
+const catOf=t=>/food|zomato|swiggy|lunch|dinner|breakfast|grocer|restaurant|chai|coffee/.test(t)?'Food & Dining':/bus|cab|uber|ola|train|flight|fuel|petrol|diesel|metro|travel/.test(t)?'Travel':/amazon|flipkart|shop|cloth|shoe|mall/.test(t)?'Shopping':/bill|electric|recharge|rent|wifi|internet|water|gas|emi/.test(t)?'Bills':/movie|netflix|game|concert|party/.test(t)?'Entertainment':/medic|doctor|hospital|pharma|tablet|clinic|dawa/.test(t)?'Medical':'Others';
+function act(q){const t=q.toLowerCase();if(/goal|reminder|budget/.test(t))return null;const m=t.match(/^(?:i\s+)?(add|spent|paid|received|earned|got)\b\D*?(\d[\d,]*(?:\.\d+)?)\s*(?:rs\.?|rupees|inr)?\s*(?:on|for|from|to)?\s*(.*)$/);if(!m)return null;
+ const income=/income|salary|received|earned|got|freelance/.test(t),amt=+m[2].replace(/,/g,''),d=(m[3]||'').replace(/^(expense|income|payment)\s*/,'').trim()||(income?'Income':'Expense');
+ const cat=income?(/salary/.test(t)?'Salary':/freelance/.test(t)?'Freelance':'Other income'):catOf(t);
+ S.tx.push({id:++S.n,date:iso(0),type:income?'income':'expense',cat,desc:d.charAt(0).toUpperCase()+d.slice(1),amt,status:'paid',method:'UPI',file:null});save();render();
+ return`Done! Added ${income?'income':'expense'} of ${inr(amt)} under ${cat} (${d}). Your balance is now ${inr(bal())}.`}
+function reply(t){t=t.toLowerCase();const E=sum(ex()),I=sum(inc()),cs=bycat(0),has=r=>r.test(t);
+ if(has(/^(hi|hello|hey|namaste|hii)\b/))return'Hi! Ask me about your balance, spending, bills, budget or goals. You can also type "spent 200 on food" to add a payment.';
+ if(has(/thank|shukriya|dhanyavad/))return'You are welcome!';
+ if(!S.tx.length&&has(/summary|spend|save|insight|where|biggest|income|kharch|recent|last/))return'You have no transactions yet. Add one from Add Payment (or type "spent 200 on food") and ask me again.';
+ if(has(/balance|bacha|paise/))return`Your balance is ${inr(bal())} (opening ${inr(S.opening||0)} + income ${inr(I)} - expenses ${inr(E)}).`;
+ for(const[k,i]of[['food',0],['dining',0],['zomato',0],['swiggy',0],['travel',1],['shopping',2],['bill',3],['entertainment',4],['medical',5],['other',6]])if(t.includes(k)&&has(/how much|spent|spend|total|kitna|kharch/))return`You spent ${inr(cs[i])} on ${EC[i]} in total, ${inr(bycat(1)[i])} of it this month.`;
+ if(has(/biggest|highest|largest|sabse/)){const m=[...ex()].sort((a,b)=>b.amt-a.amt)[0];return m?`Your biggest expense is ${m.desc}: ${inr(m.amt)} on ${fd(m.date)}.`:'No expenses yet.'}
+ if(has(/recent|last|latest/))return'Latest transactions:\n'+sorted().slice(0,5).map(x=>`• ${fd(x.date)} ${x.desc}: ${x.type=='income'?'+':'-'}${inr(x.amt)}`).join('\n');
+ if(has(/pend|status/)){const p=pend();return p.length?`You have ${p.length} pending payment(s):\n`+p.map(x=>`• ${x.desc}: ${inr(x.amt)} (${fd(x.date)})`).join('\n'):'No pending payments.'}
+ if(has(/bill|remind|due/)){const r=rems();return r.length?'Upcoming bills:\n'+r.map(x=>`• ${x.name}: ${inr(x.amt)}, ${dleft(x.date)<0?'overdue':dleft(x.date)==0?'due today':'due in '+dleft(x.date)+' days'}`).join('\n'):'You have no upcoming bills. Add one with + Add under Upcoming Reminders.'}
+ if(has(/goal/))return S.goals.length?S.goals.map(g=>`• ${g.name}: ${inr(g.saved)} of ${inr(g.target)} (${Math.round(g.saved/g.target*100)}%)`).join('\n'):'You have no goals yet. Add one from Financial Goals.';
+ if(has(/budget|limit/)){if(!(S.budget>0))return'You have not set a monthly budget yet. Set one in Budgets or Settings.';const sp=msum(0);return`This month you spent ${inr(sp)} of your ${inr(S.budget)} budget (${Math.round(sp/S.budget*100)}%). ${sp>S.budget?'You are over budget by '+inr(sp-S.budget)+'.':inr(S.budget-sp)+' left.'}`}
+ if(has(/save|saving|cut|reduce|bachat/)){const m=cs.indexOf(Math.max(...cs));return`Your biggest category is ${EC[m]} at ${inr(cs[m])} (${Math.round(cs[m]/(E||1)*100)}% of spending). Cutting it by 15% would save about ${inr(cs[m]*.15)}. A weekly cap on it is a good start.`}
+ if(has(/summary|spend|where|over|insight|kharch/))return`Income ${inr(I)}, expenses ${inr(E)}, balance ${inr(bal())}. Savings rate: ${Math.round((I-E)/(I||1)*100)}%. Top categories: ${EC.map((c,i)=>[c,cs[i]]).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>`${x[0]} (${inr(x[1])})`).join(', ')}.`;
+ return'I did not fully get that. Try: "balance", "how much did I spend on food", "biggest expense", "upcoming bills", "budget status", or "spent 200 on food".'}
+function pack(){const o=[];hist.slice(-14).forEach(m=>{const r=m[0]=='u'?'user':'assistant';if(o.length&&o[o.length-1].role==r)o[o.length-1].content+='\n'+m[1];else o.push({role:r,content:m[1]})});while(o.length&&o[0].role!='user')o.shift();return o}
+function ctx(){const cs=bycat(0);return`Today: ${iso(0)}. User: ${S.name}. Currency: INR.\nOpening balance: ${S.opening||0}. Monthly budget: ${S.budget||'not set'}. Income: ${sum(inc())}. Expenses: ${sum(ex())}. Balance: ${bal()}.\nSpend by category: ${EC.map((c,i)=>c+' '+cs[i]).join(', ')}.\nTransactions (date|type|category|description|amount|status): ${sorted().slice(0,80).map(x=>[x.date,x.type,x.cat,x.desc,x.amt,x.status].join('|')).join('; ')||'none'}.\nUpcoming bills: ${rems().map(r=>r.name+' '+r.amt+' due '+r.date).join('; ')||'none'}.\nGoals: ${S.goals.map(g=>g.name+' '+g.saved+'/'+g.target).join('; ')||'none'}.`}
+async function llm(msgs){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':S.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:S.model||'claude-sonnet-5-5',max_tokens:800,system:"You are the AI assistant inside the Cashflow personal finance app. Reply in the same language as the user (English, Hindi or Hinglish). Be friendly, concise and practical, use the rupee symbol, and base every number on the data below; if something is not in the data, say so. Do not give regulated investment advice.\n\n"+ctx(),messages:msgs})}),j=await r.json();if(!r.ok)throw new Error(j.error&&j.error.message||r.status);return j.content.map(c=>c.text||'').join('')}
+async function ask(q){q=(q||$('#ci').value).trim();if(!q||busy)return;$('#ci').value='';hist.push(['u',q]);let a=act(q);
+ if(!a){if(S.key){busy=1;const msgs=pack();hist.push(['a','Thinking…']);drawChat();try{a=await llm(msgs)}catch(e){a='AI error: '+e.message+'\n\nBuilt-in answer:\n'+reply(q)}busy=0;hist.pop()}else a=reply(q)}
+ hist.push(['a',a]);drawChat()}
+function drawChat(){$('#ah').textContent='🤖 '+AI().title;$('#am').textContent=S.key?'🟢 Full AI mode: answers use your finance data.':'⚪ Built-in assistant. Add an AI API key in Settings to ask anything in full AI mode.';
+ $('#chat').innerHTML=(hist.length?hist:[['a','Hi! Ask me about your spending, bills, budget or goals. Try "spent 200 on food" to add a payment.']]).map(m=>`<div class="${m[0]}">${esc(m[1])}</div>`).join('');$('#chat').scrollTop=1e9;
+ $('#chips').innerHTML=['Spending summary','How can I save money?','Upcoming bills','Show pending payments','Budget status','Biggest expense','My goals'].map(c=>`<button onclick="ask('${c}')">${c}</button>`).join('')}
+$('#ci').onkeydown=e=>{if(e.key=='Enter')ask()};
+const oR=render;render=function(){oR();if(cur=='assistant')drawChat()};
+
+/* reports */
+function dl(name,type,txt){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click();toast('Downloaded '+name)}
+function csv(){const q=v=>'"'+String(v).replace(/"/g,'""')+'"';dl('cashflow-transactions.csv','text/csv',['Date,Type,Category,Description,Amount,Status,Method'].concat(sorted().map(x=>[x.date,x.type,x.cat,x.desc,x.amt,x.status,x.method].map(q).join(','))).join('\n'))}
+$('#q').oninput=()=>{if(cur!='receipts'&&cur!='transactions')go('transactions');else render()};
+$('#ft').onchange=render;
+
+/* editable reminders & AI panel */
+let eid=null;
+function editR(id){eid=id||null;const r=id?S.rem.find(x=>x.id==id):null;$('#rht').textContent=r?'Edit Reminder':'Add Reminder';$('#rfn').value=r?r.name:'';$('#rfa').value=r?r.amt:'';$('#rfd').value=r?r.date:iso(7);$('#rfi').value=r?(r.ic||'🔔'):'🔔';$('#rmd').classList.add('on')}
+function delR(id){if(confirm('Delete this reminder?')){S.rem=S.rem.filter(x=>x.id!=id);save();render()}}
+$('#rf').onsubmit=e=>{e.preventDefault();const o={name:$('#rfn').value.trim(),amt:+$('#rfa').value,date:$('#rfd').value,ic:$('#rfi').value};if(eid)Object.assign(S.rem.find(x=>x.id==eid),o);else S.rem.push({id:++S.n,...o});save();$('#rmd').classList.remove('on');render();toast('Reminder saved')};
+function tipRow(v){return`<div class="f" style="margin-bottom:8px"><input class="tp" value="${esc(v)}" placeholder="Write your tip"><button type="button" class="mini" onclick="this.parentElement.remove()">🗑</button></div>`}
+function openAI(f){const A=AI();$('#ati').value=A.title;$('#asu').value=A.sub;$('#amg').value=A.msg;$('#aau').checked=A.auto;$('#atl').innerHTML=A.tips.map(t=>tipRow(t)).join('');$('#amd').classList.add('on');if(f)setTimeout(()=>$('#'+f).focus(),50)}
+$('#aat').onclick=()=>$('#atl').insertAdjacentHTML('beforeend',tipRow(''));
+$('#af').onsubmit=e=>{e.preventDefault();S.ai={title:$('#ati').value.trim()||'Finny',sub:$('#asu').value.trim(),msg:$('#amg').value.trim(),auto:$('#aau').checked,tips:[...document.querySelectorAll('.tp')].map(x=>x.value.trim()).filter(Boolean)};save();$('#amd').classList.remove('on');render();toast('AI panel updated')};
+$('#aar').onclick=()=>{if(confirm('Reset the AI panel to default?')){delete S.ai;save();$('#amd').classList.remove('on');render()}};
+['rmd','amd','gmd'].forEach(i=>$('#'+i).onclick=e=>{if(e.target.id==i)e.target.classList.remove('on')});
+
+/* helpers */
+const bal=()=>(+S.opening||0)+sum(inc())-sum(ex())-sum(S.goals,g=>g.ded||0);
+const msum=o=>{const n=new Date();n.setDate(1);n.setMonth(n.getMonth()+o);return sum(ex().filter(x=>{const d=D(x.date);return d.getMonth()==n.getMonth()&&d.getFullYear()==n.getFullYear()}))};
+const goalH=g=>{const p=g.target?Math.round(g.saved/g.target*100):0;return`<div class="goal"><span><b>${esc(g.name)}</b></span><em>${p}%</em><span style="color:var(--mut)">${inr(g.saved)} / ${inr(g.target)} <button class="link" title="Add money" onclick="addS(${g.id})">+ Add money</button><button class="mini" title="Edit" onclick="editG(${g.id})">✏️</button><button class="mini" title="Delete" onclick="delG(${g.id})">🗑</button></span><div class="bar"><i style="width:${Math.min(p,100)}%"></i></div></div>`};
+let gid=null;
+function editG(id){gid=id||null;const g=id?S.goals.find(x=>x.id==id):null;$('#gmt').textContent=g?'Edit Goal':'Add Goal';$('#gfn').value=g?g.name:'';$('#gft').value=g?g.target:'';$('#gfs').value=g?g.saved:0;$('#gmd').classList.add('on')}
+function delG(id){if(confirm('Delete this goal?')){S.goals=S.goals.filter(x=>x.id!=id);save();render()}}
+$('#gf').onsubmit=e=>{e.preventDefault();const o={name:$('#gfn').value.trim(),target:+$('#gft').value,saved:Math.max(0,+$('#gfs').value||0)};if(gid)Object.assign(S.goals.find(x=>x.id==gid),o);else S.goals.push({id:++S.n,...o});save();$('#gmd').classList.remove('on');render();toast('Goal saved')};
+function snooze(id){const r=S.rem.find(x=>x.id==id);if(r){r.date=iso(dleft(r.date)+1);save();render();toast('Reminder moved to the next day')}}
+function autoMsg(r){if(!r)return'You have no upcoming bills. Add one with + Add under Upcoming Reminders.';const d=dleft(r.date);return`Just a reminder: your ${esc(r.name)} of ${inr(r.amt)} is ${d<0?'overdue':d==0?'due today':'due in '+d+' days'}.<br><br>Would you like me to pay it now?`}
+function insights(){if(!S.tx.length)return[['💡','Add your first payment and I will show spending insights here.','Give me a summary']];
+ const o=[],cs=bycat(1),t=sum(cs),m=cs.indexOf(Math.max(...cs)),a=msum(0),b=msum(-1);
+ if(t)o.push(['✅',`Top spend this month: ${EC[m]} (${inr(cs[m])}). Cutting 10% saves about ${inr(cs[m]*.1)}.`,'How can I save money?']);
+ if(b>0){const p=Math.round((a-b)/b*100);o.push(['📈',`Spending is ${Math.abs(p)}% ${p>=0?'higher':'lower'} than last month.`,'Give me a summary'])}
+ if(S.budget>0)o.push(['🎯',`${Math.round(a/S.budget*100)}% of your monthly budget is used.`,'Budget status']);
+ if(pend().length)o.push(['🟧',`You have ${pend().length} pending payment(s).`,'Show pending payments']);
+ return o.slice(0,3)}
+function saveSet(){S.name=$('#sn').value.trim()||S.name;S.dob=$('#sdob').value;S.opening=+$('#sob').value||0;S.budget=+$('#sbu').value||0;if(S.dob>iso(0))return toast('Date of birth cannot be in the future');save();render();toast('Settings saved')}
+function clearAll(){if(confirm('Delete ALL your payments, reminders and goals? This cannot be undone.')){S={...seed(),name:S.name,setup:true,key:S.key,model:S.model};save();render();toast('All data cleared')}}
+$('#of').onsubmit=e=>{e.preventDefault();S.opening=+$('#ob').value||0;S.budget=+$('#obu').value||0;S.setup=true;save();$('#omd').classList.remove('on');render()};
+$('#osk').onclick=()=>{S.setup=true;save();$('#omd').classList.remove('on')};
+
+/* database (IndexedDB) */
+let DB=null,UD={};
+const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('cashflow',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const kvGet=k=>new Promise(res=>{try{const q=DB.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>res()}catch(e){res()}});
+const kvSet=(k,v)=>{try{DB.transaction('kv','readwrite').objectStore('kv').put(v,k)}catch(e){}};
+const kvDel=k=>{try{DB.transaction('kv','readwrite').objectStore('kv').delete(k)}catch(e){}};
+
+/* auth */
+const DEMO='demo@cashflow.app';let mode='in';
+const users=()=>UD,saveU=u=>{UD=u;kvSet('users',u)};
+const hh=s=>{let h=5381;for(const c of s)h=(h*33^c.charCodeAt(0))>>>0;return h.toString(36)};
+const err=m=>{$('#le').textContent=m};
+function tab(m){mode=m;err('');$('#lnw').style.display=m=='up'?'block':'none';$('#lt').textContent=m=='up'?'Create your account':'Welcome back';$('#ls').textContent=m=='up'?'Create account':'Sign in';
+ $('#lsw').innerHTML=m=='up'?'Already have an account? <button type="button" class="link" onclick="tab(\'in\')">Sign in</button>':'New to Cashflow? <button type="button" class="link" onclick="tab(\'up\')">Create account</button>'}
+$('#lform').onsubmit=e=>{e.preventDefault();const em=$('#lem').value.trim().toLowerCase(),pw=$('#lpw').value,us=users();
+ if(mode=='up'){const n=$('#ln').value.trim();if(!n)return err('Enter your name');if(us[em])return err('An account with this email already exists');if(pw.length<6)return err('Password must be at least 6 characters');us[em]={name:n,p:hh(pw)};saveU(us)}
+ else if(!us[em]||us[em].p!=hh(pw))return err('Incorrect email or password');
+ start(em)};
+function demo(){start(DEMO)}
+async function start(em){if(!UD[em])return;U=em;K='cashflow_data_'+em;kvSet('session',em);let d=await kvGet(K);if(!d||!Array.isArray(d.tx))d={...seed(),name:UD[em].name};S=d;fixS();hist=S.chat||[];applyTheme();
+ $('#login').style.display='none';$('#q').value='';save();go('dashboard');if(!S.setup)$('#omd').classList.add('on');toast('Welcome, '+(S.name||'there').split(' ')[0]+'!')}
+function doLogout(){kvDel('session');U=null;K='';$('#lform').reset();tab('in');['rmd','amd','gmd','omd','md'].forEach(i=>$('#'+i).classList.remove('on'));$('#login').style.display='flex'}
+(async()=>{try{DB=await idb()}catch(e){toast('Database unavailable: your data will not be saved')}
+ UD=(await kvGet('users'))||{};
+ try{const o=JSON.parse(localStorage.getItem('cashflow_users')||'{}');for(const k in o)if(!UD[k])UD[k]=o[k]}catch(e){}
+ UD[DEMO]={name:'Demo User',p:hh('demo123')};kvSet('users',UD);
+ const ses=await kvGet('session');if(ses&&UD[ses])start(ses);else tab('in')})();
+</script>
+<script>
+const R=`Dashboard|डैशबोर्ड|Dashboard
+Transactions|लेन-देन|Transactions
+Add Payment|भुगतान जोड़ें|Payment Add Karein
+Receipts|रसीदें|Receipts
+Budgets|बजट|Budgets
+AI Assistant|एआई सहायक|AI Assistant
+Reports|रिपोर्ट|Reports
+Share & Parents|शेयर और माता-पिता|Share & Parents
+Settings|सेटिंग्स|Settings
+Logout|लॉगआउट|Logout
+Good Morning,|सुप्रभात,|Subah mubarak,
+Good Afternoon,|नमस्कार,|Namaste,
+Good Evening,|शुभ संध्या,|Shubh sandhya,
+Here's your financial overview for today.|आज का आपका वित्तीय सार।|Aaj ka aapka financial overview.
+Total Balance|कुल शेष राशि|Kul Balance
+Total Income|कुल आय|Kul Income
+Total Expenses|कुल खर्च|Kul Kharcha
+Total Savings|कुल बचत|Kul Bachat
+📅 Monthly Spending Overview|📅 मासिक खर्च का सार|📅 Mahine ka Kharcha
+◔ Expense Breakdown|◔ खर्च का विवरण|◔ Kharcha Breakdown
+🧾 Recent Transactions|🧾 हाल के लेन-देन|🧾 Recent Transactions
+⚡ Quick Actions|⚡ त्वरित कार्य|⚡ Quick Actions
+📅 Weekly Spending|📅 साप्ताहिक खर्च|📅 Weekly Kharcha
+🎯 Financial Goals|🎯 वित्तीय लक्ष्य|🎯 Financial Goals
+⏰ Upcoming Reminders|⏰ आगामी रिमाइंडर|⏰ Upcoming Reminders
+View All|सब देखें|Sab Dekhein
+Total Expense|कुल खर्च|Kul Kharcha
+Manual payment entry|हाथ से भुगतान दर्ज करें|Manually payment entry
+View Receipts|रसीदें देखें|Receipts Dekhein
+See all your receipts|अपनी सभी रसीदें देखें|Apni sab receipts dekhein
+Set Budget|बजट सेट करें|Budget Set Karein
+Plan your monthly budget|मासिक बजट बनाएं|Monthly budget plan karein
+Date|तारीख|Tareekh
+Type|प्रकार|Type
+Category|श्रेणी|Category
+Description|विवरण|Description
+Amount|राशि|Amount
+Status|स्थिति|Status
+Receipt|रसीद|Receipt
+Income|आय|Income
+Expense|खर्च|Kharcha
+Paid|चुकाया|Paid
+Pending|लंबित|Pending
+Received|प्राप्त|Received
+Receipt Vault|रसीद तिजोरी|Receipt Vault
+📷 Upload Receipt|📷 रसीद अपलोड करें|📷 Receipt Upload Karein
++ Add Payment|+ भुगतान जोड़ें|+ Payment Add Karein
+Monthly Budget|मासिक बजट|Monthly Budget
+Save limit|सीमा सेव करें|Limit Save Karein
+Upcoming Bills|आगामी बिल|Upcoming Bills
+Savings Goals|बचत लक्ष्य|Savings Goals
++ Add goal|+ लक्ष्य जोड़ें|+ Goal Add Karein
++ Add reminder|+ रिमाइंडर जोड़ें|+ Reminder Add Karein
++ Add|+ जोड़ें|+ Add
+Send|भेजें|Send
+Spending summary|खर्च का सार|Spending summary
+How can I save money?|पैसे कैसे बचाऊं?|Paise kaise bachayein?
+Upcoming bills|आगामी बिल|Upcoming bills
+Budget status|बजट स्थिति|Budget status
+Biggest expense|सबसे बड़ा खर्च|Biggest expense
+My goals|मेरे लक्ष्य|Mere goals
+Reports & Backup|रिपोर्ट और बैकअप|Reports & Backup
+Export CSV|CSV निकालें|CSV Export Karein
+Clear all my data|मेरा सारा डेटा मिटाएं|Mera sara data clear karein
+Profile photo|प्रोफ़ाइल फ़ोटो|Profile photo
+Remove|हटाएं|Remove
+Your name|आपका नाम|Aapka naam
+Date of birth|जन्म तिथि|Janm tithi
+Language|भाषा|Bhasha
+Theme|थीम|Theme
+Light|लाइट|Light
+Dark|डार्क|Dark
+Custom colour|कस्टम रंग|Custom colour
+Accent|मुख्य रंग|Accent colour
+Background|पृष्ठभूमि|Background
+Sidebar|साइडबार|Sidebar
+Current balance (₹)|मौजूदा शेष राशि (₹)|Current balance (₹)
+Monthly budget (₹)|मासिक बजट (₹)|Monthly budget (₹)
+AI API key (turns on full AI: ask anything)|AI API कुंजी (फुल AI चालू करें: कुछ भी पूछें)|AI API key (full AI on karein: kuch bhi puchein)
+Save settings|सेटिंग्स सेव करें|Settings Save Karein
+Share my data|मेरा डेटा शेयर करें|Mera data share karein
+Period|अवधि|Period
+This month|इस महीने|Is mahine
+Last 7 days|पिछले 7 दिन|Pichhle 7 din
+All time|सारा समय|Sara time
+Summary|सार|Summary
+Goals|लक्ष्य|Goals
+My note (optional)|मेरा नोट (वैकल्पिक)|Mera note (optional)
+Message|संदेश|Message
+More apps|और ऐप्स|More apps
+Copy|कॉपी|Copy
+👪 Parents|👪 माता-पिता|👪 Parents
+Save your parent's contact, then send them your report with one tap.|माता-पिता का संपर्क सेव करें, फिर एक टैप में रिपोर्ट भेजें।|Parents ka contact save karein, phir ek tap mein report bhejein.
+Parent name|माता-पिता का नाम|Parent ka naam
+Phone (with country code)|फ़ोन (देश कोड के साथ)|Phone (country code ke saath)
+Save parent|सेव करें|Parent Save Karein
+Send to parents|माता-पिता को भेजें|Parents ko bhejein
+Save|सेव करें|Save
+Cancel|रद्द करें|Cancel
+Save payment|भुगतान सेव करें|Payment Save Karein
+Search transactions, receipts...|लेन-देन, रसीदें खोजें...|Transactions, receipts search karein...
+Ask about spending, bills, budget...|खर्च, बिल, बजट के बारे में पूछें या कुछ भी...|Kharcha, bills, budget ya kuch bhi puchein...
+🟢 Full AI mode: answers use your finance data.|🟢 फुल AI मोड: जवाब आपके डेटा पर आधारित हैं।|🟢 Full AI mode: answers aapke data par based hain.
+⚪ Built-in assistant. Add an AI API key in Settings to ask anything in full AI mode.|⚪ बिल्ट-इन सहायक। कुछ भी पूछने के लिए सेटिंग्स में AI कुंजी डालें।|⚪ Built-in assistant. Kuch bhi puchne ke liye Settings mein AI key daalein.`.split('\n').map(r=>r.split('|'));
+const DI={hi:{},hn:{}};R.forEach(r=>{DI.hi[r[0]]=r[1];DI.hn[r[0]]=r[2]});
+function tr(){const L=S.lang||'en',d=DI[L]||{};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+ while(n=w.nextNode()){const pn=n.parentNode.nodeName;if(pn=='SCRIPT'||pn=='STYLE')continue;if(n.__t!==n.nodeValue)n.__o=n.nodeValue;const o=n.__o,k=o.trim(),nv=(d[k]!==undefined)?o.replace(k,d[k]):o.replace(/^(\s*Good (?:Morning|Afternoon|Evening),)/,m=>d[m.trim()]||m);if(n.nodeValue!==nv)n.nodeValue=nv;n.__t=nv}
+ document.querySelectorAll('[placeholder]').forEach(e=>{if(e.__po===undefined||e.__pt!==e.placeholder)e.__po=e.placeholder;const v=d[e.__po]||e.__po;if(e.placeholder!==v)e.placeholder=v;e.__pt=v})}
+new MutationObserver(tr).observe(document.body,{childList:true,subtree:true,characterData:true});
+const oR2=render;render=function(){oR2();tr()};
+function setLang(v){S.lang=v;save();document.documentElement.lang=v=='hi'?'hi':'en';render()}
+/* theme */
+function applyTheme(){const t=S.th||{m:'light'},b=document.body,st=b.style;['--pri','--bg','--sb1','--sb2','--nav'].forEach(k=>st.removeProperty(k));let dk=t.m=='dark';
+ if(t.m=='custom'){st.setProperty('--pri',t.a);st.setProperty('--bg',t.b);st.setProperty('--sb1',t.s);st.setProperty('--sb2',t.s);st.setProperty('--nav',t.s);const h=t.b.slice(1);dk=parseInt(h.slice(0,2),16)*.3+parseInt(h.slice(2,4),16)*.59+parseInt(h.slice(4,6),16)*.11<110}
+ b.classList.toggle('dark',dk)}
+function setTheme(m){S.th=S.th||{};S.th.m=m;if(m=='custom'){S.th.a=$('#tc1').value;S.th.b=$('#tc2').value;S.th.s=$('#tc3').value}save();applyTheme();$('#tcw').style.display=m=='custom'?'grid':'none'}
+/* profile */
+function av(){[$('#av'),$('#sav')].forEach(x=>{if(!x)return;x.style.backgroundImage=S.photo?`url(${S.photo})`:'';x.textContent=S.photo?'':(S.name[0]||'?').toUpperCase()})}
+function fillSet(){$('#slang').value=S.lang||'en';$('#sdob').max=iso(0);$('#sdob').value=S.dob||'';const t=S.th||{m:'light'};$('#sth').value=t.m;$('#tc1').value=t.a||'#3d4fd6';$('#tc2').value=t.b||'#f4f5fb';$('#tc3').value=t.s||'#101c40';$('#tcw').style.display=t.m=='custom'?'grid':'none';av()}
+$('#sph').onchange=e=>{const f=e.target.files[0];if(!f)return;if(!f.type.startsWith('image/'))return toast('Choose an image file');const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas'),k=Math.min(i.width,i.height);c.width=c.height=256;c.getContext('2d').drawImage(i,(i.width-k)/2,(i.height-k)/2,k,k,0,0,256,256);S.photo=c.toDataURL('image/jpeg',.85);save();render();toast('Photo updated')};i.src=r.result};r.readAsDataURL(f);e.target.value=''};
+/* share & parents */
+function fillSh(){const p=S.par||{};$('#pn').value=p.n||'';$('#pp').value=p.ph||'';$('#pe').value=p.em||''}
+function savePar(){S.par={n:$('#pn').value.trim(),ph:$('#pp').value.trim(),em:$('#pe').value.trim()};save();toast('Parent saved')}
+function shText(){const per=$('#shr').value,ok=x=>per=='a'||(per=='m'?x.date.slice(0,7)==iso(0).slice(0,7):dleft(x.date)>-7),T=sorted().filter(ok),I=sum(T.filter(x=>x.type=='income')),E=sum(T.filter(x=>x.type=='expense')),o=['💰 Cashflow – '+S.name+' ('+fd(iso(0))+')'];
+ if($('#c-sum').checked)o.push(`Balance: ${inr(bal())}\nIncome: ${inr(I)}\nExpenses: ${inr(E)}`);
+ if($('#c-tx').checked)o.push(T.slice(0,40).map(x=>`• ${fd(x.date)} ${x.desc}: ${x.type=='income'?'+':'-'}${inr(x.amt)}`).join('\n')||'No transactions');
+ if($('#c-g').checked)o.push(S.goals.map(g=>`🎯 ${g.name}: ${inr(g.saved)}/${inr(g.target)}`).join('\n')||'No goals');
+ if($('#c-b').checked)o.push(rems().map(r=>`⏰ ${r.name}: ${inr(r.amt)} (${fd(r.date)})`).join('\n')||'No bills');
+ if($('#shn').value.trim())o.push($('#shn').value.trim());return o.join('\n\n')}
+function sh(ch,par){const t=shText(),e=encodeURIComponent(t),P=S.par||{},p=par?(P.ph||'').replace(/\D/g,''):'',m=par?(P.em||''):'';
+ if(par&&((ch=='mail'&&!m)||(ch!='mail'&&!p)))return toast('Save your parent\'s '+(ch=='mail'?'email':'phone number')+' first');
+ if(ch=='wa')window.open('https://wa.me/'+p+'?text='+e,'_blank');
+ else if(ch=='sms')location.href='sms:'+p+'?&body='+e;
+ else if(ch=='mail')location.href='mailto:'+m+'?subject='+encodeURIComponent('Cashflow report')+'&body='+e;
+ else if(ch=='ig'){navigator.clipboard&&navigator.clipboard.writeText(t);window.open('https://www.instagram.com/direct/inbox/','_blank');toast('Copied – paste it in your Instagram chat')}
+ else if(ch=='cp'){navigator.clipboard?navigator.clipboard.writeText(t).then(()=>toast('Copied')):toast('Copy not supported')}
+ else navigator.share?navigator.share({title:'Cashflow',text:t}).catch(()=>{}):toast('Share sheet not supported here')}
+/* AI: full chat with all saved data */
+const LN=()=>({en:'English',hi:'Hindi (Devanagari script)',hn:'Hinglish (Hindi written in English letters)'})[S.lang||'en'];
+function ctx(){const cs=bycat(0);return`Today: ${iso(0)} (${new Date().toLocaleDateString('en-US',{weekday:'long'})}). User: ${S.name}${S.dob?', born '+S.dob:''}. Currency: INR.\nOpening balance ${S.opening||0}; monthly budget ${S.budget||'not set'}; total income ${sum(inc())}; total expenses ${sum(ex())}; balance ${bal()}.\nSpend by category: ${EC.map((c,i)=>c+' '+cs[i]).join(', ')}.\nALL saved transactions (date|type|category|description|amount|status|method): ${sorted().slice(0,500).map(x=>[x.date,x.type,x.cat,x.desc,x.amt,x.status,x.method].join('|')).join('; ')||'none'}.\nBills: ${rems().map(r=>r.name+' '+r.amt+' due '+r.date).join('; ')||'none'}.\nGoals: ${S.goals.map(g=>g.name+' '+g.saved+'/'+g.target).join('; ')||'none'}.`}
+async function llm(msgs){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':S.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:S.model||'claude-sonnet-5-5',max_tokens:1500,system:`You are the AI inside the Cashflow money app, a general assistant like ChatGPT or Gemini: answer ANY question the user asks (general knowledge, coding, advice, anything), with extra depth on money. For questions about their spending, a date, an item (e.g. pizza), summaries or comparisons, use ONLY the saved data below and give dates, amounts, totals and related details. If the data lacks something, say so. ALWAYS reply in ${LN()}, whatever language the user writes in. Be friendly and practical; use the ₹ symbol. No regulated investment advice.\n\n`+ctx(),messages:msgs})}),j=await r.json();if(!r.ok)throw new Error(j.error&&j.error.message||r.status);return j.content.map(c=>c.text||'').join('')}
+function pd(t){const n=new Date();let m;if(/\b(today|aaj)\b/.test(t))return iso(0);if(/\b(yesterday|kal)\b/.test(t))return iso(-1);
+ if(m=t.match(/(\d{4})-(\d{1,2})-(\d{1,2})/))return m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');
+ if(m=t.match(/(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/))return(m[3].length==2?'20'+m[3]:m[3])+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');
+ if(m=t.match(/(\d{1,2})(?:st|nd|rd|th)?\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\w*(?:\s*,?\s*(\d{4}))?/))return(m[3]||n.getFullYear())+'-'+String(MN.findIndex(x=>x.toLowerCase()==m[2])+1).padStart(2,'0')+'-'+m[1].padStart(2,'0')}
+function lk(q){const t=q.toLowerCase(),d=pd(t),L=S.lang||'en',w=(a,b,c)=>L=='hi'?b:L=='hn'?c:a,ln=x=>`• ${fd(x.date)} ${x.desc} (${x.cat}, ${x.method||''}): ${x.type=='income'?'+':'-'}${inr(x.amt)}`;
+ if(d){const l=S.tx.filter(x=>x.date==d);if(!l.length)return w('No transactions on '+fd(d),fd(d)+' को कोई लेन-देन नहीं मिला',fd(d)+' ko koi transaction nahi mila');return fd(d)+':\n'+l.map(ln).join('\n')+'\n'+w('Spent','कुल खर्च','Kul kharcha')+' '+inr(sum(l.filter(x=>x.type=='expense')))+', '+w('Income','आय','Income')+' '+inr(sum(l.filter(x=>x.type=='income')))}
+ const stop=/^(what|when|which|spent|spend|have|show|tell|much|kitna|kitne|kharch|kharcha|bill|bills|budget|goal|goals|total|summary|balance|recent|last|latest|pending|save|saving|income|expense|biggest|from|about|with|that|this|mera|meri|mere|batao|bata|diya|kiya|kya|liya|liye)$/;
+ const ws=t.split(/[^a-z0-9]+/).filter(x=>x.length>3&&!stop.test(x)),l=sorted().filter(x=>ws.some(k=>x.desc.toLowerCase().includes(k)));
+ if(l.length)return w(`Found ${l.length} matching transaction(s), total ${inr(sum(l))}:`,`${l.length} लेन-देन मिले, कुल ${inr(sum(l))}:`,`${l.length} transaction mile, kul ${inr(sum(l))}:`)+'\n'+l.slice(0,12).map(ln).join('\n')}
+async function ask(q){q=(q||$('#ci').value).trim();if(!q||busy)return;$('#ci').value='';hist.push(['u',q]);let a=act(q);
+ if(!a){if(S.key){busy=1;const msgs=pack();hist.push(['a','…']);drawChat();try{a=await llm(msgs)}catch(e){a='AI error: '+e.message+'\n\n'+(lk(q)||reply(q))}busy=0;hist.pop()}else a=lk(q)||reply(q)}
+ hist.push(['a',a]);S.chat=hist.slice(-100);save();drawChat()}
+</script>
+<script>
+const X=`+ Add money|+ पैसे जोड़ें|+ Paise add karein
+Add money|पैसे जोड़ें|Paise add karein
+Deduct from my balance|मेरे बैलेंस से घटाएं|Mere balance se kaatein
+Log out?|लॉग आउट करें?|Log out karna hai?
+Are you sure you want to log out?|क्या आप सच में लॉग आउट करना चाहते हैं?|Kya aap sach mein log out karna chahte hain?
+Yes|हाँ|Haan
+No|नहीं|Nahi
+✏️ Edit name|✏️ नाम बदलें|✏️ Naam badlein
+Custom category|कस्टम श्रेणी|Custom category
+⚪ Offline mode: open the published app for full AI.|⚪ ऑफ़लाइन मोड: पूरे AI के लिए पब्लिश्ड ऐप खोलें।|⚪ Offline mode: full AI ke liye published app kholein.`.split('\n').map(r=>r.split('|'));
+X.forEach(r=>{DI.hi[r[0]]=r[1];DI.hn[r[0]]=r[2]});
+const W=(a,b,c)=>({en:a,hi:b,hn:c})[S.lang||'en'];
+function fixS(){const t=iso(0);S.tx.forEach(x=>{if(x.date>t)x.date=t});if(S.dob&&S.dob>t)S.dob='';if(S.ai&&S.ai.title=='Smart Personal AI')S.ai.title='Finny';delete S.key;delete S.model}
+/* custom category */
+function cc(){const v=$('#mc').value,on=v=='Others'||v=='Other income';$('#mcw').style.display=on?'block':'none';if(!on)$('#mcs').value='';$('#ccl').innerHTML=[...new Set(S.tx.map(x=>x.sub).filter(Boolean))].map(v=>`<option value="${esc(v)}">`).join('')}
+$('#mc').onchange=cc;const subv=()=>$('#mcw').style.display=='none'?'':$('#mcs').value.trim();
+/* goals: add money */
+let dgid=null;function addS(id){const g=S.goals.find(x=>x.id==id);if(!g)return;dgid=id;$('#dmt').textContent=W('Add money to ','पैसे जोड़ें: ','Paise add karein: ')+g.name;$('#dhn').textContent=W('Remaining: ','बाकी: ','Baki: ')+inr(g.target-g.saved);$('#dam').value='';$('#dmd').classList.add('on')}
+$('#df').onsubmit=e=>{e.preventDefault();const g=S.goals.find(x=>x.id==dgid),v=+$('#dam').value;if(!g||!(v>0))return;const a=Math.min(v,g.target-g.saved);if(a<=0){$('#dmd').classList.remove('on');return toast('Goal already complete 🎉')}g.saved+=a;if($('#dde').checked)g.ded=(g.ded||0)+a;save();$('#dmd').classList.remove('on');render();toast(inr(a)+' → '+g.name)};
+/* notifications + profile popups */
+const age=d=>{const b=D(d),n=new Date();let a=n.getFullYear()-b.getFullYear();if(n<new Date(n.getFullYear(),b.getMonth(),b.getDate()))a--;return a};
+const dl2=d=>d<0?W('Overdue by '+(-d)+' day(s)','समय सीमा '+(-d)+' दिन पहले निकल गई','Last date '+(-d)+' din pehle nikal gayi'):d==0?W('Due today','आज अंतिम तारीख','Aaj last date'):W('Due in '+d+' day(s)',d+' दिन बाकी',d+' din baki');
+function nHTML(){const P=sorted().filter(x=>x.status=='pending'),B=rems(),tp=sum(P.filter(x=>x.type=='expense')),tb=sum(B),h=t=>`<h4 style="margin:12px 0 2px;font-size:13px">${t}</h4>`,
+ it=(t,s,a,b)=>`<div class="pi"><div><b>${esc(t)}</b><div class="sm">${s}</div></div><div style="text-align:right"><b>${inr(a)}</b><br>${b}</div></div>`;
+ return`<b>🔔 ${W('Notifications','सूचनाएं','Notifications')}</b>`+h(W('Pending payments','लंबित भुगतान','Pending payments')+` (${P.length})`)+(P.map(x=>it(x.desc,(x.type=='income'?W('To receive','मिलना है','Milna hai'):W('To pay','देना है','Dena hai'))+' · '+fd(x.date),x.amt,`<button class="link" onclick="markP(${x.id})">${x.type=='income'?W('Received','मिल गया','Mil gaya'):W('Mark paid','चुका दिया','Paid mark karein')}</button>`)).join('')||`<p class="empty">${W('Nothing pending 🎉','कुछ लंबित नहीं 🎉','Kuch pending nahi 🎉')}</p>`)
+ +h(W('Upcoming bills','आगामी बिल','Upcoming bills')+` (${B.length})`)+(B.map(r=>{const d=dleft(r.date);return it(r.name,W('Last date: ','अंतिम तारीख: ','Last date: ')+fd(r.date)+' · <span style="color:'+(d<=2?'var(--r)':'inherit')+'">'+dl2(d)+'</span>',r.amt,`<button class="link" onclick="payR(${r.id});refreshN()">${W('Pay','भुगतान','Pay')}</button>`)}).join('')||`<p class="empty">${W('No upcoming bills.','कोई आगामी बिल नहीं।','Koi upcoming bill nahi.')}</p>`)
+ +`<div class="pi" style="border:0"><b>${W('Total to pay','कुल देना है','Kul dena hai')}</b><b>${inr(tp+tb)}</b></div>`}
+function markP(id){const x=S.tx.find(t=>t.id==id);if(x){x.status='paid';save();render();toast(W('Updated','अपडेट हुआ','Updated'))}}
+const refreshN=()=>{$('#np').innerHTML=nHTML()};
+function pHTML(){const L=S.lang||'en',th=(S.th||{}).m||'light',m=(i,t,f)=>`<button class="pmb" onclick="closeP();${f}">${i} ${t}</button>`,c=(on,f,t)=>`<button class="${on?'on':''}" onclick="${f}">${t}</button>`;
+ return`<div style="display:flex;gap:10px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--line)"><span class="av" style="width:48px;height:48px;font-size:18px;${S.photo?`background-image:url(${S.photo})`:''}">${S.photo?'':esc((S.name[0]||'?').toUpperCase())}</span><div style="min-width:0"><b>${esc(S.name)}</b><div class="sm">${esc(U||'')}</div>${S.dob?`<div class="sm">🎂 ${fd(S.dob)} · ${age(S.dob)} ${W('yrs','साल','saal')}</div>`:''}</div></div>`
+ +m('👤',W('My Profile','मेरी प्रोफ़ाइल','Meri Profile'),"go('settings')")+m('📷',W('Change photo','फ़ोटो बदलें','Photo badlein'),"go('settings');$('#sph').click()")+m('🎂',W('Date of birth','जन्म तिथि','Date of birth'),"go('settings');setTimeout(()=>$('#sdob').focus(),60)")+m('👪',W('Parents','माता-पिता','Parents'),"go('share')")
+ +`<div class="sm" style="margin:8px 0 4px">${W('Language','भाषा','Bhasha')}</div><div class="chips" style="margin:0 0 6px">${c(L=='en',"setLang('en')",'English')}${c(L=='hi',"setLang('hi')",'हिन्दी')}${c(L=='hn',"setLang('hn')",'Hinglish')}</div><div class="sm" style="margin:4px 0">${W('Theme','थीम','Theme')}</div><div class="chips" style="margin:0 0 8px">${c(th=='light',"setTheme('light')",'☀️ Light')}${c(th=='dark',"setTheme('dark')",'🌙 Dark')}${c(th=='custom',"go('settings');closeP()",'🎨 Custom')}</div>`+m('🚪',W('Logout','लॉगआउट','Logout'),'logout()')}
+const refreshP=()=>{$('#pm').innerHTML=pHTML()},closeN=()=>$('#np').classList.remove('on'),closeP=()=>$('#pm').classList.remove('on');
+function togN(){closeP();const o=$('#np');o.classList.toggle('on');if(o.classList.contains('on'))refreshN()}
+function togP(){closeN();const o=$('#pm');o.classList.toggle('on');if(o.classList.contains('on'))refreshP()}
+document.addEventListener('click',e=>{if(!e.composedPath().some(n=>n.id=='np'||n.id=='pm'||(n.classList&&(n.classList.contains('bell')||n.classList.contains('user'))))){closeN();closeP()}});
+function logout(){closeN();closeP();$('#lmd').classList.add('on')}
+$('#lmd').onclick=e=>{if(e.target.id=='lmd')e.target.classList.remove('on')};$('#dmd').onclick=e=>{if(e.target.id=='dmd')e.target.classList.remove('on')};
+const oR3=render;render=function(){oR3();$('.bell').classList.toggle('z',!(pend().length+S.rem.length));if($('#np').classList.contains('on'))refreshN();if($('#pm').classList.contains('on'))refreshP()};
+/* Finny AI */
+let SM=null;(async()=>{try{if(window.claude&&claude.use)SM=await claude.use('sample')}catch(e){}if(cur=='assistant')drawChat()})();
+function ctx(){const cs=bycat(0);return`Today: ${iso(0)} (${new Date().toLocaleDateString('en-US',{weekday:'long'})}). User: ${S.name}${S.dob?', born '+S.dob:''}. Currency INR.\nOpening balance ${S.opening||0}; monthly budget ${S.budget||'not set'}; total income ${sum(inc())}; total expenses ${sum(ex())}; moved to goals ${sum(S.goals,g=>g.ded||0)}; current balance ${bal()}.\nSpend by category (all time): ${EC.map((c,i)=>c+' '+cs[i]).join(', ')}.\nALL saved transactions (date|type|category|description|amount|status|method): ${sorted().slice(0,600).map(x=>[x.date,x.type,x.cat+(x.sub?'/'+x.sub:''),x.desc,x.amt,x.status,x.method].join('|')).join('; ')||'none'}.\nBills: ${rems().map(r=>r.name+' '+r.amt+' due '+r.date).join('; ')||'none'}.\nGoals: ${S.goals.map(g=>g.name+' '+g.saved+'/'+g.target).join('; ')||'none'}.`}
+const sys=()=>`You are ${AI().title}, the friendly AI assistant inside the Cashflow money app. Behave like ChatGPT or Gemini: reply naturally to greetings and small talk, and answer ANY question (general knowledge, studies, coding, health, advice, writing, anything) fully and helpfully. Money is your speciality: for the user's own spending, income, bills, goals use ONLY the saved data below, giving exact dates, amounts, totals, category splits, comparisons, trends and practical saving tips; for a date or an item (e.g. pizza) list every matching transaction with totals. If data is missing, say so. Use the tools (add_transaction, add_reminder, add_to_goal) when the user asks to record something; never use a future date; confirm briefly afterwards. Reply ONLY in ${({en:'English',hi:'Hindi (Devanagari script)',hn:'Hinglish (Hindi written in English letters)'})[S.lang||'en']}. Short paragraphs, **bold** for key numbers, ₹ for money. No regulated investment advice. Expense categories: ${EC.join(', ')}; income: ${IC.join(', ')}.\n\n${ctx()}`;
+const TL=()=>[{name:'add_transaction',description:'Save an income or expense in the app. Date must be today or earlier.',inputSchema:{type:'object',properties:{type:{type:'string',enum:['income','expense']},amount:{type:'number'},category:{type:'string'},description:{type:'string'},date:{type:'string',description:'YYYY-MM-DD'},status:{type:'string',enum:['paid','pending']}},required:['type','amount','description']},execute:i=>{const d=i.date||iso(0);if(d>iso(0))throw new Error('Future dates are not allowed');if(!(i.amount>0))throw new Error('Invalid amount');const n=i.type=='income',c=(n?IC:EC).find(x=>x.toLowerCase()==String(i.category||'').toLowerCase())||(n?'Other income':catOf(String(i.description).toLowerCase()));S.tx.push({id:++S.n,date:d,type:i.type,cat:c,desc:i.description,amt:i.amount,status:i.status||'paid',method:'UPI',file:null});save();render();return'Saved '+i.type+' '+inr(i.amount)+' ('+c+') on '+d+'. Balance now '+inr(bal())}},
+{name:'add_reminder',description:'Add an upcoming bill reminder.',inputSchema:{type:'object',properties:{name:{type:'string'},amount:{type:'number'},due_date:{type:'string',description:'YYYY-MM-DD'}},required:['name','amount','due_date']},execute:i=>{if(!(i.amount>0)||!i.due_date)throw new Error('Need amount and due date');S.rem.push({id:++S.n,name:i.name,amt:i.amount,date:i.due_date,ic:'🔔'});save();render();return'Reminder saved'}},
+{name:'add_to_goal',description:'Add money to a savings goal.',inputSchema:{type:'object',properties:{goal:{type:'string'},amount:{type:'number'}},required:['goal','amount']},execute:i=>{const g=S.goals.find(x=>x.name.toLowerCase().includes(String(i.goal).toLowerCase()));if(!g)throw new Error('Goal not found');const a=Math.min(i.amount,g.target-g.saved);if(!(a>0))throw new Error('Nothing to add');g.saved+=a;g.ded=(g.ded||0)+a;save();render();return'Added '+inr(a)+' to '+g.name}}];
+function sm(q){const t=q.toLowerCase().trim(),n=AI().title,f=(S.name||'').split(' ')[0];
+ if(/^(hi+|hello+|hey+|hii+|namaste|namaskar|yo|sup|good (morning|afternoon|evening))\b/.test(t))return W(`Hello ${f}! 👋 I'm ${n}. Ask me about your money, any date's transactions, or just chat.`,`नमस्ते ${f}! 👋 मैं ${n} हूँ। पैसों, किसी तारीख के लेन-देन या किसी भी बारे में पूछें।`,`Hello ${f}! 👋 Main ${n} hoon. Apne paise, kisi date ke transactions ya kuch bhi puchiye.`);
+ if(/how are you|kaise ho|kese ho|kaisi ho|kya haal/.test(t))return W('I\'m doing great, thanks! 😊 How can I help with your money today?','मैं बढ़िया हूँ, धन्यवाद! 😊 आज पैसों में क्या मदद करूँ?','Main badhiya hoon! 😊 Aaj paison mein kya madad karun?');
+ if(/who are you|your name|tumhara naam|tera naam|aapka naam|kaun ho/.test(t))return W(`I'm ${n}, your personal money assistant.`,`मैं ${n} हूँ, आपका पर्सनल मनी असिस्टेंट।`,`Main ${n} hoon, aapka personal money assistant.`);
+ if(/thank|shukriya|dhanyavad|thx/.test(t))return W('You\'re welcome! 😊','आपका स्वागत है! 😊','Welcome ji! 😊');
+ if(/\bbye\b|good ?night|alvida/.test(t))return W('Bye! Take care 👋','अलविदा! ख्याल रखिए 👋','Bye! Take care 👋');
+ if(/\bjoke\b|chutkula/.test(t))return['Why did the rupee go to school? To gain some cents! 😄','Paise ped par nahi ugte, par kharche to roz ugte hain! 😄'][Math.random()*2|0];
+ if(/what('?s| is) (the )?(time|date|day)|aaj (kya )?(date|din)|current (date|time)/.test(t))return new Date().toLocaleString('en-IN',{dateStyle:'full',timeStyle:'short'});
+ if(/what can you do|\bhelp\b|madad|kya kar sakte/.test(t))return W('I can show any date\'s transactions, summarise spending, track bills & goals, add expenses ("spent 200 on food") and chat about anything.','मैं किसी भी तारीख के लेन-देन, खर्च का सार, बिल और लक्ष्य बता सकता हूँ, खर्च जोड़ सकता हूँ और बात भी कर सकता हूँ।','Main kisi bhi date ke transactions, spending summary, bills & goals bata sakta hoon, expense add kar sakta hoon aur baat bhi kar sakta hoon.')}
+const offline=q=>sm(q)||lk(q)||reply(q);
+function fmt(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
+function drawChat(){$('#ah').textContent='🤖 '+AI().title;$('#am').textContent=SM?'🟢 Full AI mode: answers use your finance data.':'⚪ Offline mode: open the published app for full AI.';
+ $('#chat').innerHTML=(hist.length?hist:[['a',W(`Hi! I'm ${AI().title} 👋 Ask me anything: money, spending on any date, or just chat.`,`नमस्ते! मैं ${AI().title} हूँ 👋 पैसों, किसी तारीख के खर्च या किसी भी बारे में पूछें।`,`Hi! Main ${AI().title} hoon 👋 Paise, kisi date ka kharcha ya kuch bhi puchiye.`)]]).map(m=>`<div class="${m[0]}">${fmt(m[1])}</div>`).join('');$('#chat').scrollTop=1e9;
+ $('#chips').innerHTML=['Hello','Spending summary','How can I save money?','Upcoming bills','Show pending payments','Budget status','Biggest expense','My goals'].map(c=>`<button onclick="ask('${c}')">${c}</button>`).join('')}
+async function ask(q){q=(q||$('#ci').value).trim();if(!q||busy)return;$('#ci').value='';hist.push(['u',q]);const a=act(q);
+ if(a)hist.push(['a',a]);
+ else if(SM){busy=1;const ms=pack().map((m,i)=>i?m:{role:m.role,content:sys()+'\n\n---\nConversation:\n'+m.content});hist.push(['a','…']);drawChat();const set=t=>{hist[hist.length-1]=['a',t];drawChat()};
+  try{const r=await SM(ms,{cache:false,tools:TL(),onText:({text})=>set(text)});set(r.text||'✅')}catch(e){set((e&&e.code=='not_granted'?'':W('Sorry, AI is not reachable right now. ','माफ़ कीजिए, AI अभी उपलब्ध नहीं है। ','Sorry, AI abhi available nahi hai. '))+offline(q))}busy=0}
+ else hist.push(['a',offline(q)]);
+ S.chat=hist.slice(-100);save();drawChat()}
+</script>
+<script>
+async function dl(name,type,data){try{const d=window.claude&&claude.use?await claude.use('downloads'):null;if(d){await d.save({filename:name,data});toast('Saved '+name);return}}catch(e){if(e&&e.code=='declined')return}
+ const a=document.createElement('a');a.href=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type}));a.download=name;a.click();toast('Downloaded '+name)}
+const HD=['Date','Type','Category','Description','Amount (₹)','Status','Method'],rowD=x=>[x.date,x.type,x.cat+(x.sub?' - '+x.sub:''),x.desc,x.amt,x.status,x.method||''];
+function csv(){const q=v=>'"'+String(v).replace(/"/g,'""')+'"';dl('cashflow-transactions.csv','text/csv;charset=utf-8','\ufeff'+[HD.map(q).join(',')].concat(sorted().map(x=>{const r=rowD(x);return['="'+fd(r[0])+'"',q(r[1]),q(r[2]),q(r[3]),r[4],q(r[5]),q(r[6])].join(',')})).join('\r\n'))}
+function crc(b){const t=crc.t||(crc.t=Array.from({length:256},(_,n)=>{let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;return c>>>0}));let c=-1;for(const x of b)c=t[(c^x)&255]^(c>>>8);return(c^-1)>>>0}
+function zip(files){const e=new TextEncoder(),out=[],cd=[],u2=n=>[n&255,n>>8&255],u4=n=>[n&255,n>>8&255,n>>16&255,n>>>24];let off=0;
+ for(const[name,txt]of files){const nb=e.encode(name),d=e.encode(txt),c=crc(d),h=[...u4(0x04034b50),20,0,0,0,0,0,0,0,0,0,...u4(c),...u4(d.length),...u4(d.length),...u2(nb.length),0,0];out.push(new Uint8Array(h),nb,d);cd.push(new Uint8Array([...u4(0x02014b50),20,0,20,0,0,0,0,0,0,0,0,0,...u4(c),...u4(d.length),...u4(d.length),...u2(nb.length),0,0,0,0,0,0,0,0,0,0,0,0,...u4(off)]),nb);off+=h.length+nb.length+d.length}
+ let cl=0;cd.forEach(x=>cl+=x.length);return new Blob([...out,...cd,new Uint8Array([...u4(0x06054b50),0,0,0,0,...u2(files.length),...u2(files.length),...u4(cl),...u4(off),0,0])],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+function xlsx(){const H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',N='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"',R='http://schemas.openxmlformats.org/officeDocument/2006/relationships',
+ st=(v,y)=>`<c t="inlineStr"${y?` s="${y}"`:''}><is><t>${esc(v)}</t></is></c>`,
+ ser=d=>{const[y,m,k]=d.split('-').map(Number);return(Date.UTC(y,m-1,k)-Date.UTC(1899,11,30))/864e5},
+ rows=`<row r="1">${HD.map(h=>st(h,2)).join('')}</row>`+sorted().map((x,i)=>{const r=rowD(x);return`<row r="${i+2}"><c s="1"><v>${ser(r[0])}</v></c>${st(r[1])}${st(r[2])}${st(r[3])}<c><v>${r[4]}</v></c>${st(r[5])}${st(r[6])}</row>`}).join('');
+ const f=[['[Content_Types].xml',H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'],
+ ['_rels/.rels',H+`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+ ['xl/workbook.xml',H+`<workbook ${N} xmlns:r="${R}"><sheets><sheet name="Transactions" sheetId="1" r:id="rId1"/></sheets></workbook>`],
+ ['xl/_rels/workbook.xml.rels',H+`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="${R}/styles" Target="styles.xml"/></Relationships>`],
+ ['xl/styles.xml',H+`<styleSheet ${N}><numFmts count="1"><numFmt numFmtId="164" formatCode="dd\\-mmm\\-yyyy"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs></styleSheet>`],
+ ['xl/worksheets/sheet1.xml',H+`<worksheet ${N}><cols><col min="1" max="1" width="15" customWidth="1"/><col min="2" max="2" width="10" customWidth="1"/><col min="3" max="3" width="22" customWidth="1"/><col min="4" max="4" width="34" customWidth="1"/><col min="5" max="5" width="14" customWidth="1"/><col min="6" max="7" width="11" customWidth="1"/></cols><sheetData>${rows}</sheetData></worksheet>`]];
+ dl('cashflow-transactions.xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',zip(f))}
+</script></body></html>
